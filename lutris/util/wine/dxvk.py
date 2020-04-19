@@ -19,7 +19,6 @@ CACHE_MAX_AGE = 86400  # Re-download DXVK versions every day
 def init_dxvk_versions():
     def get_dxvk_versions(base_name, tags_url):
         """Get DXVK versions from GitHub"""
-        logger.info("Updating %s versions", base_name.upper())
         dxvk_path = os.path.join(RUNTIME_DIR, base_name)
         if not os.path.isdir(dxvk_path):
             os.mkdir(dxvk_path)
@@ -177,7 +176,7 @@ class DXVKManager:
         dxvk_dll_path = os.path.join(self.dxvk_path, dxvk_arch, "%s.dll" % dll)
         if system.path_exists(dxvk_dll_path):
             wine_dll_path = os.path.join(system_dir, "%s.dll" % dll)
-            logger.info(
+            logger.debug(
                 "Replacing %s/%s with %s version",
                 system_dir,
                 dll,
@@ -200,7 +199,7 @@ class DXVKManager:
         wine_dll_path = os.path.join(system_dir, "%s.dll" % dll)
         if system.path_exists(wine_dll_path + ".orig"):
             if system.path_exists(wine_dll_path):
-                logger.info(
+                logger.debug(
                     "Removing %s dll %s/%s", self.base_name.upper(), system_dir, dll
                 )
                 os.remove(wine_dll_path)
